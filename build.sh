@@ -10,3 +10,6 @@ python manage.py migrate
 
 # Collect static files
 python manage.py collectstatic --no-input
+
+# Create default superuser (for ephemeral SQLite)
+python manage.py create_default_superuser
