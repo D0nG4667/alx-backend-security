@@ -32,6 +32,7 @@ def test_logging():
         print(
             f"IP: {log.ip_address}, Path: {log.path}, Time: {log.timestamp}", flush=True
         )
+        print(f"Location: {log.city}, {log.country}", flush=True)
 
 
 if __name__ == "__main__":

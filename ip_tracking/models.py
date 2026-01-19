@@ -5,6 +5,16 @@ class RequestLog(models.Model):
     ip_address = models.GenericIPAddressField()
     timestamp = models.DateTimeField(auto_now_add=True)
     path = models.TextField()
+    country = models.CharField(max_length=50, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return f"{self.ip_address} - {self.path} at {self.timestamp}"
+
+
+class BlockedIP(models.Model):
+    ip_address = models.GenericIPAddressField(unique=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.ip_address
