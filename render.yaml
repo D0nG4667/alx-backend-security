@@ -8,45 +8,11 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
-      - key: DATABASE_URL
-        fromDatabase:
-          name: alx-backend-db
-          property: connectionString
       - key: ALLOWED_HOSTS
         value: "*"
       - key: DEBUG
         value: "false"
-      - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: celery-redis
-          property: connectionString
       - key: SECRET_KEY
         generateValue: true
-
-  # Worker Service (Celery)
-  - type: worker
-    name: celery-worker
-    env: python
-    buildCommand: "./build.sh"
-    startCommand: "celery -A alx_backend_security worker -l info"
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: alx-backend-db
-          property: connectionString
-      - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: celery-redis
-          property: connectionString
-
-  # Redis for Celery Broker
-  - type: redis
-    name: celery-redis
-    ipAllowList: [] # internal access only
-
-databases:
-  - name: alx-backend-db
-    databaseName: alx_security
-    user: alx_user
+      - key: WEB_CONCURRENCY
+        value: "2"
