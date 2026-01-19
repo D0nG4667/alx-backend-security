@@ -21,6 +21,8 @@ services:
           type: redis
           name: celery-redis
           property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
 
   # Worker Service (Celery)
   - type: worker
@@ -39,13 +41,12 @@ services:
           name: celery-redis
           property: connectionString
 
+  # Redis for Celery Broker
+  - type: redis
+    name: celery-redis
+    ipAllowList: [] # internal access only
+
 databases:
   - name: alx-backend-db
     databaseName: alx_security
     user: alx_user
-
-# Redis for Celery Broker
-services:
-  - type: redis
-    name: celery-redis
-    ipAllowList: [] # internal access only
